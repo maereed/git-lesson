@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -35,349 +35,764 @@
 	</head>
 
 	<body>
+    <div class="reveal">
+		<div class="slides">
 
-		<div class="reveal">
+			<section>
+				<h1>Demystifying Git</h1>
+			</section>
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+			<section>
+				<h2>Objectives</h2>
+				<ol>
+					<li>Learn basics of Git</li>
+					<li>Know how to edit and add files.</li>
+					<li>Create and merge branches.</li>
+					<li>Use GitHub with a local and remote repository.</li>
+					<li>Know how to trouble-shoot commits.</li>
+				</ol>
+			</section>
+
+			<section>
+				<h2>Basic Understanding</h2>
+				<p>Git and GitHub are different.</p>
+			</section>
+
+
+			<section>
 				<section>
-					<h1>Reveal.js</h1>
-					<h3>The HTML Presentation Framework</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
+					<p>What is feels like learning git...</p>
+					<img src="https://dl.dropboxusercontent.com/s/ad0baln5z7annjy/comp-rage2.gif?dl=0" alt="">
 				</section>
 
 				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
-				</section>
-
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-						</a>
-					</section>
+					<h2>What is Git?</h2>
+					<p>Command line tool</p>
+					<p>Version control</p>
+					<p>So you can manage a project, or set of files as they change over time.</p>
 				</section>
 
 				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
+					<h3>Git stores this information in a data structure called a repository (repo)</h3>
+					<p class="fragment">Commit objects</p>
+					<p class="fragment">References to these objects called HEADs</p>
 				</section>
 
 				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
+					<h3>Commit Object</h3>
+					<p class="fragment">A set of files</p>
+					<p class="fragment">A string that uniquely identifies each one</p>
 				</section>
 
 				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
+					<h3>Head</h3>
+					<p class="fragment">A head is simply a reference to a commit object</p>
+					<p class="fragment">Every repository get a default called <i>master</i></p>
+					<p class="fragment"> At any given time, one head is selected as the <i>current head.</i> This head is aliased to HEAD, always in capitals.</p>
+					<aside class="notes">
+						A repository can contain any number of heads.
+					</aside>
 				</section>
 
 				<section data-markdown>
 					<script type="text/template">
-						## Markdown support
-
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-
-						```
-						<section data-markdown>
-						  ## Markdown support
-
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
+						###Git's workflow can be split into 3 parts:
+						* Working area
+						* Staging area
+						* The Git repository
 					</script>
 				</section>
 
-				<section>
-					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
+				<section data-markdown>
+					<script type="text/template">
+						The **working area** represents the current state of the files you are working with.
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
+						The **staging area** holds the files that have been changed or added since your last commit.
+
+						Once the commit is made, it’s added to the **repository** and the process starts over again.
+					</script>
 				</section>
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
+				<section data-markdown>
+					<script type="text/template">
+						###Likewise, the files themselves go through a 3 stage process:
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
-
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
-
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
-
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
-
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
-
-				<section>
-					<h2>Marvelous List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
-
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
-
+						* unmodified files
+						* modified files
+						* staging area
+					</script>
 					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+						The unmodified and modified files are pretty self explanatory: the difference is whether or not you have made changes.
+
+						An unmodified file is one that you have not touched, and it will not appear if you run `git status`. **The modified file is a file that has been changed but not added**. It will appear under the heading `Changes not staged for commit:` when you run `git status`.
+
+						The staging area is where the files are added and ready to commit. So this happens after the **git add myfile.html** command we would run.
+					</aside>
+				</section>
+
+
+
+
+			</section>
+
+
+			<section>
+
+				<section>
+					<h2>What is GitHub?</h2>
+					<p>Remote tool</p>
+					<p>View commits</p>
+					<p>Manage Repositories</p>
+					<p>Collabortaive working</p>
+					<p class="fragment">Think "the Cloud"</p>
+					<aside class="notes">
+						Other remote management tools are out there, like Bitbucket and gitlab, github is just the most commonly used
 					</aside>
 				</section>
 
 				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
-					<iframe src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+					<h3>Central Remote Repository</h3>
+					<p class="fragment">Has no <i>working</i> files</p>
+					<p class="fragment">Just holds repo infomation</p>
 				</section>
 
 				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
+					<h3>Why?</h3>
+					<h3 class="fragment">COLLABORATION</h3>
 				</section>
 
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+				<section>
+					<p>GitHub creates a clean/bare repo</p>
+					<p class="fragment">Just push and pull up to the remote repo</p>
+					<p class="fragment">No edits happen here</p>
+					<aside class="notes">
+						They only happen locally
+						Developers just make their changes locally and push or pull to the reopsitory
+					</aside>
+				</section>
+
+				<section>
+					<img src="http://dl.dropboxusercontent.com/s/ki2erz9mhs9nztt/WTF.gif?dl=0" alt="umm....">
+					<h2>ummmm....</h2>
+				</section>
+
+			</section>
+
+
+			<section>
+				<section>
+					<h2>So... how does it work?</h2>
+				</section>
+
+				<section>
+					<h2>Let's start with configurations</h2>
+					<pre><code>
+git config --global user.name "Your Name"
+git config --global user.email "your_email@whatever.com"
+					</code></pre>
+					<aside class="notes">
+						You can set the username and email to something different per-repository by excluding the long flag 'global'. Examples: if you mostly work on repositories for work, global might be your work email, otherwise, and on a personal project, you would use a personal email.
+					</aside>
+				</section>
+
+				<section>
+					<p>Let's create our first repository</p>
+					<pre><code>
+cd ~/Desktop
+mkdir hello
+cd hello
+touch hello.html
+					</code></pre>
+					<aside class="notes">
+						vim into hello.html
+						type "Hello, world"
+					</aside>
+				</section>
+
+				<section>
+					<pre><code>git init</code></pre>
+
+					<p class="fragment">We now have our first git repository</p>
+					<img src="http://dl.dropboxusercontent.com/s/yj2umqx80x3zbbm/1-init.svg?dl=0" alt="" class="fragment">
+					<aside class="notes">
+						Is the a local or remote repo at this point?
+					</aside>
+				</section>
+
+				<section>
+					<p>Initialized empty Git repository in </p>
+					<code>~/Desktop/hello</code>
+					<section>
+						<img src="https://dl.dropboxusercontent.com/s/qzxv4veaulujxgg/2-master.svg?dl=0" alt="">
+					</section>
+					<aside class="notes">
+						Show how other files are not git repos
+					</aside>
+				</section>
+
+			</section>
+
+
+			<section>
+
+				<section>
+					<pre><code>git status</code></pre>
+					<aside class="notes">
+						This shows us the status of our wroking files. We are in the WORKING AREA of the git workflow
+					</aside>
+				</section>
+
+				<section>
+					<h2>Move from Working to Staging</h2>
+					<pre><code>git add</code></pre>
+					<aside class="notes">
+						Using git add to say ready to move forward to staging.
+					</aside>
+				</section>
+
+				<section>
+					<pre><code>git commit -m "Init git repo"</code></pre>
+					<aside class="notes">
+						Now this commit has been added to repo.
+					</aside>
+					<img src="https://dl.dropboxusercontent.com/s/wxapn6lur9pcies/3-commit.svg?dl=0" alt="master with commit" class="fragment">
+				</section>
+
+			</section>
+
+
+			<section>
+
+				<section>
+					<pre><code>git status</code></pre>
+					<aside class="notes">
+						Nothing in our working area!
+					</aside>
+				</section>
+
+				<section>
+					<h2>Let's change something...</h2>
+					<pre><code>vim hello.html</code></pre>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						from:
+						```
+						Hello, World
+						```
+						to:
+						```
+						<h1>Hello, World</h1>
+						```
+					</script>
+					<aside class="notes">
+						then git status again...
+						what happened?
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						```
+						git status
+						git add
+						git commit -m "Changed heading to h1"
+						```
+					</script>
+					<aside class="notes">
+						Say something about commit messages
+						Separating staging and committing `git add *.html`
+						but can also `git commit -am "message"`
+					</aside>
+				</section>
+
+				<section>
+					<h2>You can repeat this process and commit as many times as you want.</h2>
+					<img src="https://dl.dropboxusercontent.com/s/lgdp17guhs9k1mh/slack-imgs-4.com.gif?dl=0" alt="">
+				</section>
+
+			</section>
+
+
+			<section>
+
+				<section data-markdown>
+					<script type="text/template">
+						##Deeper dive into staging
+						Change hello.html
+						```
+						<html>
+						  <body>
+						    <h1>Hello, World!</h1>
+						  </body>
+						</html>
+						```
+					</script>
+					<aside class="notes">
+						Add the HTML tags
+						then `git add hello.html`
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						```
+						<html>
+						  <head>
+						  </head>
+						  <body>
+						    <h1>Hello, World!</h1>
+						  </body>
+						</html>
+						```
+					</script>
+					<aside class="notes">
+
+						git status
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						```
+						$ git status
+						# On branch master
+						# Changes to be committed:
+						#   (use "git reset HEAD <file>..." to unstage)
+						#
+						#   modified:   hello.html
+						#
+						# Changes not staged for commit:
+						#   (use "git add <file>..." to update what will be committed)
+						#   (use "git checkout -- <file>..." to discard changes in working directory)
+						#
+						#   modified:   hello.html
+						#
+						```
+					</script>
+					<aside class="notes">
+						Please note that hello.html is listed in the status twice. The first change (the addition of default tags) is staged and ready for a commit. The second change (adding HTML headers) is unstaged. If you were making a commit right now, headers would not have been saved to the repository.
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						```
+						git commit -m "Added standard HTML page tags"
+						```
+					</script>
+					<aside class="notes">
+						git status shows hello.html has unrecorded changes, but is no longer in the staging area.
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						```
+						git add .
+						```
+					</script>
+					<aside class="notes">
+						Now, the second change has been staged and is ready for a commit.
+					</aside>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						```
+						git commit -m "Added HTML header"
+						```
+					</script>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+			</section>
+
+
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+						Viewing commit history
+
+						```
+						git log
+						```
+					</script>
+					<aside class="notes">
+						just like in the command line- you can view the commit history of a repo
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						Viewing at certain point in time
+
+						```
+						git checkout <hash>
+						cat hello.html
+						```
+					</script>
+					<aside class="notes">
+						You can also view the files at a certain commit
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						Now... let's go back
+
+						```
+						git checkout master
+						cat hello.html
+						```
+					</script>
+					<aside class="notes">
+						just like in the command line- you can view the commit history of a repo
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						What if I to back to previous commit?
+					</script>
+					<aside class="notes">
+						2 things, revert and reset
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<pre><code>git revert</code></pre>
+						<p class="fragment">
+							Revert is powerful
+						</p>
+						<p class="fragment">
+							<img src="https://dl.dropboxusercontent.com/s/mvqk9z6h7gx4zey/200-2.gif?dl=0" alt="strong finn">
+						</p>
+					</section>
+					<aside class="notes">
+						warn about the revert command often after commit is already made, we realize that it was a mistake
+						revert is an  undo option command BUT
+						it does not REMOVE commits from the log
+					</aside>
+				</section>
+
+				<section>
+					<pre><code>git revert #hash</code></pre>
+					<p>Allows you to cancel any commits to the repository. However, both original and cancelled commits are seen in the history of the branch</p>
+					<aside class="notes">
+						all logs still showing, but head points to a different commit in the log.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Reset command</h2>
+					<p class="fragment">
+						<ol>
+							<li>Overwrites the current branch/head to point to different commit</li>
+							<li>Can resets the <i>working area</i></li>
+							<li>So the logs no longer reflect previous changes</li>
+						</ol>
 					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
+					<aside class="notes">
+						show reset
+						git log
+						git reset --hard <hash>
+						git log
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+
+				<section data-markdown>
+					<script type="text/template">
+						##The Remote Repository
+					</script>
+				</section>
+
+				<section>
+					Goto github.com
+					<p class="fragment">Create an account (if none)</p>
+					<p class="fragment">Click New Repo</p>
+					<p class="fragment">Copy the https:</p>
+					<aside class="notes">
+						continue with the steps...
+					</aside>
+				</section>
+
+				<section>
+					<h1>WOO!</h1>
+					<img src="https://dl.dropboxusercontent.com/s/ffw0bej778n6iks/oOeq6.gif?dl=0" alt="">
+					<aside class="notes">
+						now successfully created a gihub repo from a local repo
+					</aside>
+				</section>
+
+			</section>
+
+
+			<section>
+
+				<section>
+					<h3>What if I'm happpy with the current version, but want to start working on and testing a new feature? </h3>
+					<aside class="notes">
+						Not something we've talked about yet. Introduce the idea of branching.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Need to create a Branch</h2>
+				</section>
+
+				<section>
+					<p>Don't be like Steve Harvey</p>
+					<img src="https://dl.dropboxusercontent.com/s/m8l16lmmw0irykr/GTFO.gif?dl=0" alt="">
+				</section>
+
+				<section>
+					<h2>We got dis!</h2>
+					<img src="https://dl.dropboxusercontent.com/s/4vg0hc8veprkb4z/HighFive.gif?dl=0" alt="">
+					<aside class="notes">
+						Any questions so far?
+						break?
+					</aside>
+				</section>
+
+				<section>
+					<p>In most cases we need to think of Branching as a feature.</p>
+					<img src="https://dl.dropboxusercontent.com/s/1eogshpf7lczrik/4-branch.svg?dl=0" alt="">
+					<aside class="notes">So when I branch...
+						copy master
+						start working on that feature
+						some case may have a sprint to work on and would need to branch off of that
+						where you want you base, then create new branch
+					</aside>
+				</section>
+
+				<section>
+					<h2>Navigating Branches</h2>
+						<pre><code>git checkout</code></pre>
+					<p class="fragment">
+						the other pupose of "checkout"
+					</p>
+					<aside class="notes">Switching between master and styles. how does it change</aside>
+				</section>
+
+				<section>
+					<pre><code>git checkout master</code></pre>
+					<pre><code>git checkout styles</code></pre>
+					<aside class="notes">
+						can't rememeber the names of branches, no problem
+						just do git branch to view branch names in a a repo.
+						don't remember which one you're on, git status
+					</aside>
+				</section>
+
+				<section>
+					<h3>Can do this one of two ways</h3>
+					<pre><code>git branch `new branch name`
+git checkout `new branch name`
 					</code></pre>
 				</section>
 
 				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
+					<p>or... </p>
+					<pre><code>git checkout -b `newBranchName`</code></pre>
 				</section>
 
 				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
+					<p>Just like master I can do lots of commits</p>
+					<img src="https://dl.dropboxusercontent.com/s/daedkzgmntcz4bv/5-feature-branch-commit.svg?dl=0" alt="">
+					<p class="fragment">And, other's can be working on the same project while I continue on my feature</p>
 				</section>
 
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
+				<section>
+					<img src="https://dl.dropboxusercontent.com/s/2t6nrfquj2xi07p/7-branch-2.svg?dl=0" alt="">
+					<aside class="notes">
+						SHOW HOW!!!!
+						create new branch called 'styles'
+						make  'css/style.scss' file
+						h1{color:red}
+						add and commit
+						push set upstream
+						create new branch called 'markup'
+						<link type="text/css" rel="stylesheet" media="all" href="style.scss" />
+						add and commit
+					</aside>
 				</section>
 
-			</div>
+				<section>
+					<pre><code>git push origin --set-upstream styles</code></pre>
+				</section>
+
+			</section>
+
+
+
+			<section>
+
+				<section>
+					<h2>Merging</h2>
+					<p>Eventually, you'll be done with a feature, and want it to become a part of the project.</p>
+						<pre class="fragment"><code>git merge `branch name`</code></pre>
+					<aside class="notes">
+						checkout master
+						merge styles branch
+					</aside>
+				</section>
+
+				<section>
+					<h2>Feature is ready to go live</h2>
+					<aside class="notes">
+						may be more step, depends on company
+					</aside>
+				</section>
+
+				<section>
+					<img src="https://dl.dropboxusercontent.com/s/aq5ayptf49ti1xs/8-merge.svg?dl=0" alt="">
+				</section>
+
+			</section>
+
+
+			<section>
+
+				<section>
+					<h2>
+						Merge conflicts
+					</h2>
+					<aside class="notes">
+						explain what a conflict is
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						###Conflicts are signified with:
+						```
+						>>>>>>>>>HEAD
+						This is different
+						============
+						than this
+						<<<<<<<<< some hash
+						```
+					</script>
+
+				</section>
+
+				<section>
+					<img src="https://dl.dropboxusercontent.com/s/v5jab0rj0ctbde5/9-add-changes.svg?dl=0" alt="">
+					<aside class="notes">I'm still working on my feature...
+						how do I incorporate these new ones?
+					</aside>
+				</section>
+
+				<section>
+					<pre><code>git pull</code></pre>
+				</section>
+
+				<section>
+					<img src="https://dl.dropboxusercontent.com/s/mvm0orzqyd7tmgb/10-pull.svg?dl=0" alt="">
+				</section>
+
+				<section>
+					<img src="https://dl.dropboxusercontent.com/s/3g9rmsa54w5vmv5/11-merge-feature.svg?dl=0" alt="">
+				</section>
+
+			</section>
+
+
+			<section>
+				<section>
+					<h2>Now, pull down a remote repo</h2>
+					<p>goto:</p>
+					<pre><code>https://github.com/maereed/exercises</code></pre>
+				</section>
+
+				<section>
+					<pre><code>git clone https://github.com/maereed/exercises.git</code></pre>
+					<aside class="notes">
+						now you can do whatever you want to this project
+						push up to my project
+					</aside>
+				</section>
+
+				<section>
+					<pre><code>git push origin --set-upstream styles</code></pre>
+				</section>
+
+				<section>
+					<h1>Double WOO!</h1>
+					<img src="https://dl.dropboxusercontent.com/s/ffw0bej778n6iks/oOeq6.gif?dl=0" alt="">
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>A little more stuff n' junk</h2>
+					<aside class="notes">
+						Anytime you add, rm, move, change a file, git sees it.
+						What do you think happens if I move files and then commit them?
+					</aside>
+				</section>
+				<section>
+					Moving files
+					<pre><code>git mv /file/path</code></pre>
+					<aside class="notes">
+						talk about mv vs git mv
+						and the problems that can occur
+					</aside>
+				</section>
+				<section>
+					<p>for example</p>
+					<pre><code>git mv hello.html folder/
+git status
+					</code></pre>
+				</section>
+				<section>
+					<p>you can do it move the files by: </p>
+					<pre><code>mkdir folder/
+mv hello.html folder/
+git add folder/hello.html
+git rm hello.html
+					</code></pre>
+				</section>
+				<section>
+					<h2>Moving files with git, we notify git about two things</h2>
+					<p class="fragment">1. The hello.html file was deleted.</p>
+					<p class="fragment">2. The lib/hello.html file was created.</p>
+					<aside class="notes">
+						Explain that without `git mv` git doesn't realize that's the same file so...
+						if anyone else adds to the file, and you've move it, the changes have to be made manually.
+					</aside>
+				</section>
+
+				<section>
+					Removing files
+					<pre><code>git rm file.extn</code></pre>
+					<aside class="notes">
+						Same applies here.
+						If you remove a file, not through git, it doesn't know what happened to that SPECIFIC file.
+					</aside>
+				</section>
+
+			</section>
+
+
+			<section>
+				<img src="https://dl.dropboxusercontent.com/s/h76b5n0kblvh3md/Oh_Yeah.gif?dl=0" alt="">
+				<p>end</p>
+				<h2><small><a href="http://github.com/maereed">Mae Reed</a> / <a href="http://twitter.com/maebees">@maebees</a></small></h2>
+			</section>
+
 
 		</div>
+    </div>
+
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
